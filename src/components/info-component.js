@@ -24,11 +24,11 @@ class Info extends Component{
                 <div className="container">
                     <button onClick={this.props.editHandler}>save</button>
                     <label id="phone">Phone :</label>
-                    <input onChange = {this.props.inputHandler} name="phone" value={this.props.info.phone}/>
+                    <input onChange = {this.props.inputHandler} id="info" name="phone" value={this.props.info.phone}/>
                     <label id="email">Email :</label>
-                    <input onChange = {this.props.inputHandler} name="email" value={this.props.info.email}/>
+                    <input onChange = {this.props.inputHandler} id="info" name="email" value={this.props.info.email}/>
                     <label id="adress">Adress :</label>
-                    <input onChange = {this.props.inputHandler} name="adress" value={this.props.info.adress}/>
+                    <input onChange = {this.props.inputHandler} id="info" name="adress" value={this.props.info.adress}/>
                 </div>
             )
         }
