@@ -9,7 +9,7 @@ class Info extends Component{
 
             return(
                 <div className="container">
-                    <button onClick={this.props.editHandler}>edit</button>
+                    <button name="info" onClick={this.props.editHandler}>edit</button>
                     <span>Phone :</span>
                     <span>{this.props.info.phone}</span>
                     <span>Email :</span>
@@ -22,7 +22,7 @@ class Info extends Component{
         }else {
             return(
                 <div className="container">
-                    <button onClick={this.props.editHandler}>save</button>
+                    <button name="info" onClick={this.props.editHandler}>save</button>
                     <label id="phone">Phone :</label>
                     <input onChange = {this.props.inputHandler} id="info" name="phone" value={this.props.info.phone}/>
                     <label id="email">Email :</label>

@@ -3,6 +3,8 @@ import "./styling/App.css"
 import Info from "./components/info-component";
 import Skills from "./components/skills-component";
 import Languages from "./components/languages-component";
+import Hobies from "./components/hobies-component";
+import Presentation from "./components/presentation-component";
 
 class App extends Component {
   constructor(props){
@@ -13,8 +15,14 @@ class App extends Component {
         edit:false,
         phone:"0690008290",
         email:"otman.elkantaoui@gmail.com",
-        adress: "82adress,safi,morocco"
+        adress: "82adress,safi,morocco",
+        
 
+      },
+      presentation:{
+        edit:false,
+        name: "Othmane Elkantaoui",
+        aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
       },
       skills:{
         input:"",
@@ -57,13 +65,13 @@ class App extends Component {
     
   }
  
-  editHandler(){
+  editHandler(e){
+    let name = e.target.name
     this.setState({
-      info:{
-        edit:!this.state.info.edit,
-        phone:this.state.info.phone,
-        email:this.state.info.email,
-        adress:this.state.info.adress,
+      [name]:{
+        ...this.state[name],
+        edit:!this.state[name].edit,
+        
       }
 
     })
@@ -134,8 +142,14 @@ class App extends Component {
             <div className="divider lang"> Languages</div>
             <Languages languages={this.state.languages} editSwitch={this.editSwitch} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler}/>
             <div className="divider hobies"> Hobies</div>
+            <Hobies hobies={this.state.hobies} inputHandler={this.inputHandler} editSwitch={this.editSwitch} deleteHandler={this.deleteHandler}/>
         </div>
-        <div className="education-Experience"></div>
+        <div className="education-Experience">
+              <div className="presentation">
+              <Presentation editHandler={this.editHandler} presentation={this.state.presentation} inputHandler={this.inputHandler} />
+              </div>
+
+        </div>
       </div>
     </div>
   );

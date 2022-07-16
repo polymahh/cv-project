@@ -1,0 +1,14 @@
+.presentation-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: rgb(24, 24, 24);
+    padding: 10px;
+    font-weight: bold;
+
+}
+
+.presentation-container>div{
+    display: flex;
+    justify-content: space-between;
+}
