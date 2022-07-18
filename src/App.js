@@ -5,6 +5,8 @@ import Skills from "./components/skills-component";
 import Languages from "./components/languages-component";
 import Hobies from "./components/hobies-component";
 import Presentation from "./components/presentation-component";
+import Experience from "./components/experience-component";
+import Educations from "./components/education-component";
 
 class App extends Component {
   constructor(props){
@@ -55,6 +57,38 @@ class App extends Component {
           "Arabic",
           "French"
         ]
+      },
+      experiences:{
+        inputName:'',
+        inputDescription:'',
+        name: 'experiences',
+        edit:false,
+        items:[
+          {
+            name:"Manger",
+            description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          },
+          {
+            name:"Manger",
+            description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          }
+        ]
+      },
+      educations:{
+        inputName:'',
+        inputDescription:'',
+        name: 'educations',
+        edit:false,
+        items:[
+          {
+            name:"School1",
+            description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          },
+          {
+            name:"School2",
+            description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          }
+        ]
       }
     }
 
@@ -62,6 +96,7 @@ class App extends Component {
     this.inputHandler = this.inputHandler.bind(this)
     this.editSwitch = this.editSwitch.bind(this)
     this.deleteHandler = this.deleteHandler.bind(this)
+    this.preSwitch = this.preSwitch.bind(this)
     
   }
  
@@ -79,27 +114,43 @@ class App extends Component {
 
   editSwitch(e){
     const name = e.target.name
-    Object.keys(this.state).map((item) => {
-      if(item === name){
-        this.setState({
-          ...this.state,
-          [name]:{
-            ...this.state[name],
-            edit:!this.state[name].edit,
-            items: (this.state[name].input === '') ? this.state[name].items : [...this.state[name].items,this.state[name].input],
-            input: ''
-          }
-        })
-        
+    console.log(name)
+
+    this.setState({
+      [name]:{
+        ...this.state[name],
+        edit:!this.state[name].edit,
+        items:(this.state[name].input === '' )? this.state[name].items : [...this.state[name].items, this.state[name].input],
+        input:''
       }
     })
     
+    
   }
+
+  
+  preSwitch(e){
+    let name = e.target.name
+    let input = {
+      name:this.state[name].inputName,
+      description:this.state[name].inputDescription
+    }
+    
+    this.setState({
+      [name]:{
+        ...this.state[name],
+        edit:!this.state[name].edit,
+        items:(this.state[name].inputName === ''|| this.state[name].inputDescription === '' )? this.state[name].items : [...this.state[name].items, input],
+        inputName:'',
+        inputDescription:''
+      }
+    })
+  }
+
 
   inputHandler(e){
     let name = e.target.name
     this.setState({
-      ...this.state,
       [e.target.id]:{
         ...this.state[e.target.id],
         [name]:e.target.value
@@ -114,7 +165,6 @@ class App extends Component {
     let name = e.target.name
     this.state[name].items.splice(e.target.id,1)
     this.setState({
-      ...this.state,
       [name]:{
         ...this.state[name],
         items:this.state[name].items
@@ -148,6 +198,11 @@ class App extends Component {
               <div className="presentation">
               <Presentation editHandler={this.editHandler} presentation={this.state.presentation} inputHandler={this.inputHandler} />
               </div>
+              <div className="divider2 experience"> Experience</div>
+              <Experience experiences={this.state.experiences} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler} preSwitch={this.preSwitch}/>
+              <div className="divider2 education"> Education</div>
+              <Educations educations={this.state.educations} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler} preSwitch={this.preSwitch}/>
+
 
         </div>
       </div>

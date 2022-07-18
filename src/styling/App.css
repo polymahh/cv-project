@@ -3,7 +3,7 @@
 }
 
 body{
-    background-color: bisque;
+    background-color: rgb(146, 146, 146);
 }
 
 .App-header{
@@ -16,6 +16,7 @@ body{
     height: 297mm;
     margin: auto;
     display: flex;
+    background-color: rgb(255, 255, 255);
     
 }
 
@@ -34,6 +35,16 @@ width: 70%;
 .divider{
     background-color: rgb(255, 255, 255);
     width: 60%;
+    padding: 3px;
+    font-weight: bolder;
+    border-radius: 0px 5px 5px 0px
+}
+
+.divider2{
+    margin: -10px;
+    background-color: rgb(39, 39, 39);
+    color: bisque;
+    width: 80%;
     padding: 3px;
     font-weight: bolder;
     border-radius: 0px 5px 5px 0px
