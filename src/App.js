@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React , { useState } from "react";
 import "./styling/App.css"
 import Info from "./components/info-component";
 import Skills from "./components/skills-component";
@@ -8,23 +8,14 @@ import Presentation from "./components/presentation-component";
 import Experience from "./components/experience-component";
 import Educations from "./components/education-component";
 
-class App extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
+export default function App (props) {
+ 
+    let params = {
       info:{
         edit:false,
         phone:"0690008290",
         email:"otman.elkantaoui@gmail.com",
         adress: "82adress,safi,morocco",
-        
-
-      },
-      presentation:{
-        edit:false,
-        name: "Othmane Elkantaoui",
-        aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
       },
       skills:{
         input:"",
@@ -39,6 +30,13 @@ class App extends Component {
           "inkskape",
         ]
       },
+      
+      presentation:{
+        edit:false,
+        name: "Othmane Elkantaoui",
+        aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+      },
+     
       hobies:{
         input:"",
         name: 'hobies',
@@ -50,7 +48,7 @@ class App extends Component {
       },
       languages:{
         input:"",
-        name: 'hobies',
+        name: 'languages',
         edit:false,
         items:[
           "English",
@@ -92,88 +90,10 @@ class App extends Component {
       }
     }
 
-    this.editHandler = this.editHandler.bind(this)
-    this.inputHandler = this.inputHandler.bind(this)
-    this.editSwitch = this.editSwitch.bind(this)
-    this.deleteHandler = this.deleteHandler.bind(this)
-    this.preSwitch = this.preSwitch.bind(this)
+
     
-  }
- 
-  editHandler(e){
-    let name = e.target.name
-    this.setState({
-      [name]:{
-        ...this.state[name],
-        edit:!this.state[name].edit,
-        
-      }
-
-    })
-  }
-
-  editSwitch(e){
-    const name = e.target.name
-    console.log(name)
-
-    this.setState({
-      [name]:{
-        ...this.state[name],
-        edit:!this.state[name].edit,
-        items:(this.state[name].input === '' )? this.state[name].items : [...this.state[name].items, this.state[name].input],
-        input:''
-      }
-    })
-    
-    
-  }
-
-  
-  preSwitch(e){
-    let name = e.target.name
-    let input = {
-      name:this.state[name].inputName,
-      description:this.state[name].inputDescription
-    }
-    
-    this.setState({
-      [name]:{
-        ...this.state[name],
-        edit:!this.state[name].edit,
-        items:(this.state[name].inputName === ''|| this.state[name].inputDescription === '' )? this.state[name].items : [...this.state[name].items, input],
-        inputName:'',
-        inputDescription:''
-      }
-    })
-  }
 
 
-  inputHandler(e){
-    let name = e.target.name
-    this.setState({
-      [e.target.id]:{
-        ...this.state[e.target.id],
-        [name]:e.target.value
-
-      }
-
-    })
-  }
-
-  deleteHandler(e){
-    console.log(e.target.id)
-    let name = e.target.name
-    this.state[name].items.splice(e.target.id,1)
-    this.setState({
-      [name]:{
-        ...this.state[name],
-        items:this.state[name].items
-      }
-    })
-    console.log(this.state[name].items)
-  }
-
-  render(){
   
   return (
     <div className="App">
@@ -186,22 +106,22 @@ class App extends Component {
       </header>
       <div className="bodyContainer">
         <div className="info">
-            <Info editHandler={this.editHandler} info={this.state.info} inputHandler={this.inputHandler} />
+            <Info info={params.info} />
             <div className="divider skils"> Skills</div>
-            <Skills skills={this.state.skills} editSwitch={this.editSwitch} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler}/>
+            <Skills skills={params.skills} />
             <div className="divider lang"> Languages</div>
-            <Languages languages={this.state.languages} editSwitch={this.editSwitch} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler}/>
+            <Languages languages={params.languages}/>
             <div className="divider hobies"> Hobies</div>
-            <Hobies hobies={this.state.hobies} inputHandler={this.inputHandler} editSwitch={this.editSwitch} deleteHandler={this.deleteHandler}/>
+            <Hobies hobies={params.hobies}/>
         </div>
         <div className="education-Experience">
               <div className="presentation">
-              <Presentation editHandler={this.editHandler} presentation={this.state.presentation} inputHandler={this.inputHandler} />
+              <Presentation  presentation={params.presentation}/>
               </div>
               <div className="divider2 experience"> Experience</div>
-              <Experience experiences={this.state.experiences} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler} preSwitch={this.preSwitch}/>
+              <Experience experiences={params.experiences} />
               <div className="divider2 education"> Education</div>
-              <Educations educations={this.state.educations} inputHandler={this.inputHandler} deleteHandler={this.deleteHandler} preSwitch={this.preSwitch}/>
+              <Educations educations={params.educations}/>
 
 
         </div>
@@ -209,6 +129,6 @@ class App extends Component {
     </div>
   );
 }
-}
 
-export default App;
+
+

@@ -1,33 +1,49 @@
-import { Component } from "react";
+import React,{ useState } from "react";
 import "../styling/presentation.css"
 
-class Presentation extends Component{
-    render (){
-        if(!this.props.presentation.edit){
+const Presentation = (props)=> {
+
+    const [presentation,setPresentation] = useState(props.presentation)
+
+    const editHandler = ()=> {
+        setPresentation({
+            ...presentation,
+            edit:!presentation.edit
+        })
+    }
+
+    const inputHandler = (e) =>{
+        let name = e.target.name
+        setPresentation({
+            ...presentation,
+            [name]:e.target.value
+    
+        })
+      }
+        if(!presentation.edit){
 
             return(
                 <div className="presentation-container">
-                    <button name="presentation" onClick={this.props.editHandler}>edit</button>
+                    <button name="presentation" onClick={editHandler}>edit</button>
                     <span>Name :</span>
-                    <span>{this.props.presentation.name}</span>
+                    <span>{presentation.name}</span>
                     <span>About Me :</span>
-                    <span>{this.props.presentation.aboutMe}</span>
+                    <span>{presentation.aboutMe}</span>
                 </div>
             )
 
         }else {
             return(
                 <div className="presentation-container">
-                    <button name="presentation" onClick={this.props.editHandler}>save</button>
+                    <button name="presentation" onClick={editHandler}>save</button>
                     <label id="name">Name :</label>
-                    <input onChange = {this.props.inputHandler} id="presentation" name="name" value={this.props.presentation.name}/>
+                    <input onChange = {inputHandler} id="presentation" name="name" value={presentation.name}/>
                     <label id="aboutMe">About Me :</label>
-                    <textarea onChange = {this.props.inputHandler} id="presentation" name="aboutMe" value={this.props.presentation.aboutMe}/>
+                    <textarea onChange = {inputHandler} id="presentation" name="aboutMe" value={presentation.aboutMe}/>
                     </div>
             )
         }
         
-    }
 }
 
 export default Presentation

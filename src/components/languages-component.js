@@ -1,37 +1,58 @@
-import { Component } from "react";
+import { useState } from "react";
 import "../styling/info-component.css"
 
-class Languages extends Component{
-    render(){
-    
-        let languages = this.props.languages.items.map((language, index )=> <span key={index}>{language}</span>)
-        if(this.props.languages.edit){
+export default function Languages (props){
+
+    const [languages, setLanguages] = useState(props.languages)
+
+    const editSwitch = ()=> {
+        setLanguages({
+            ...languages,
+            edit:!languages.edit,
+            items:(languages.input === '' )? languages.items : [...languages.items, languages.input],
+            input:''
+        })
+    }
+
+    const inputHandler =(e)=> {
+        setLanguages({
+            ...languages,
+            input:e.target.value
+        })
+    }
+
+    const deleteHandler = (e)=> {
+        languages.items.splice(e.target.id,1)
+        setLanguages({
+            ...languages,
+            items:languages.items
+        })
+    }
+let languageElement = languages.items.map((language, index )=> <span key={index}>{language}</span>)
+
+        if(languages.edit){
             return(
                 <div className="container">
-                    <button onClick={this.props.editSwitch} name="languages">save</button>
-                    {languages.map((language,index) => 
+                    <button onClick={editSwitch} name="languages">save</button>
+                    {languageElement.map((language,index) => 
                     <div key={index}>
                     {language}
-                    <button id={index} name="languages" onClick={this.props.deleteHandler}>delete</button>
+                    <button id={index} name="languages" onClick={deleteHandler}>delete</button>
                     </div>
                     )}
                     <hr style={{border: "1px solid white",width:"90%"}}/>
                     <label id="AddSkill">Add Language:</label>
-                    <input id="languages" name="input" value={this.props.languages.input} onChange={this.props.inputHandler} />
-                    <button onClick={this.props.editSwitch} name="languages">Add</button>
+                    <input id="languages" name="input" value={languages.input} onChange={inputHandler} />
+                    <button onClick={editSwitch} name="languages">Add</button>
                 </div>
             )
         }else {
 
             return(
                 <div className="container">
-                <button onClick={this.props.editSwitch} name="languages">edit</button>
-                {languages}
+                <button onClick={editSwitch} name="languages">edit</button>
+                {languageElement}
             </div>
         )
     }   
-    
-    }
-}
-
-export default Languages 
+} 
